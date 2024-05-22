@@ -62,7 +62,8 @@ exports.findOne = async(req, res) => {
                 Phone_UA: true,
                 Photo_UA: true,
                 NIK_UA: true,
-                DataMedis: true,
+                BirthDate_UA: true,
+                DataMedis: true
             }
         });
 
@@ -129,7 +130,7 @@ exports.findAll = async (req, res) => {
                 Photo_UA: true,
                 NIK_UA: true,
                 BirthDate_UA: true,
-                dataMedis: true,
+                DataMedis: true
             }
         });
 
