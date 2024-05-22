@@ -145,11 +145,21 @@ exports.deleteOne = async (req, res) => {
     try {
         const {uuid} = req.params;
 
-        await prisma.dataMedis.delete({
+        const dataMedisEntry = await prisma.dataMedis.findFirst({
             where: {
-                UUID_UA: uuid
-            }
-        })
+              UUID_UA: uuid,
+            },
+          });
+      
+          if (!dataMedisEntry) {
+            return res.status(404).send('Data Medis entry not found');
+          }
+      
+          await prisma.dataMedis.delete({
+            where: {
+              UUID_DM: dataMedisEntry.UUID_DM,
+            },
+          });
 
         await prisma.userAccount.delete({
             where: {
