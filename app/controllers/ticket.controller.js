@@ -66,7 +66,7 @@ exports.findAll = async (req, res) => {
 
 exports.cancel = async (req, res) => {
   try {
-    const {uuid} = req.params;
+    const { uuid } = req.params;
 
     if (!uuid) {
       return res
@@ -75,7 +75,7 @@ exports.cancel = async (req, res) => {
     }
 
     const updatedTicket = await prisma.ticketing.update({
-      where: { id: uuid },
+      where: { UUID_TC: uuid },
       data: {
         isWaiting_TC: false,
         isCancelled_TC: true,
@@ -96,7 +96,7 @@ exports.cancel = async (req, res) => {
 
 exports.complete = async (req, res) => {
   try {
-    const {uuid} = req.params;
+    const { uuid } = req.params;
     if (!uuid) {
       return res
         .status(400)
@@ -104,7 +104,7 @@ exports.complete = async (req, res) => {
     }
 
     const updatedTicket = await prisma.ticketing.update({
-      where: { id: uuid },
+      where: { UUID_TC: uuid },
       data: {
         isDone_TC: true,
         isWaiting_TC: false,
