@@ -42,8 +42,8 @@ exports.auth = async (req, res) => {
         message: "Invalid password",
       });
     }
-  } catch (error) {
-    return res.status(500).send({ message: "An error occured" + error });
+  } catch (e) {
+    return res.status(500).send({ message: "An error occured" + e });
   }
 };
 
@@ -54,7 +54,8 @@ exports.findOne = async (req, res) => {
     const responseData = await prisma.userAccount.findUnique({
       where: {
         UUID_UA: id,
-        isPasien_UA: true,
+        isPasien_UA: false,
+        isOfficer_UA: true,
       },
       select: {
         UUID_UA: true,
@@ -62,15 +63,14 @@ exports.findOne = async (req, res) => {
         Email_UA: true,
         Phone_UA: true,
         Photo_UA: true,
-        NIK_UA: true,
+        NIP_UA: true,
         BirthDate_UA: true,
-        DataMedis: true,
       },
     });
 
     return res.status(200).json(responseData);
-  } catch (error) {
-    return res.status(500).json({ error: "An error occured" + error });
+  } catch (e) {
+    return res.status(500).json({ error: "An error occured" + e });
   }
 };
 
@@ -82,7 +82,7 @@ exports.signup = async (req, res) => {
       !req.body.phone ||
       !req.body.name ||
       !req.body.birthdate ||
-      !req.body.nik
+      !req.body.nip
     ) {
       return res.status(400).send({
         message: "Invalid request on body",
@@ -101,23 +101,18 @@ exports.signup = async (req, res) => {
         Name_UA: req.body.name,
         Phone_UA: req.body.phone,
         BirthDate_UA: req.body.birthdate,
-        NIK_UA: req.body.nik,
+        NIP_UA: req.body.nip,
+        isOfficer_UA: true,
+        isPasien_UA: false,
         Photo_UA: "default",
-      },
-    });
-
-    await prisma.dataMedis.create({
-      data: {
-        UUID_DM: uuidv4(),
-        UUID_UA: uuid,
       },
     });
 
     return res.status(201).send({
       message: "User created successfully",
     });
-  } catch (error) {
-    return res.status(500).json({ error: "An error occured", error });
+  } catch (e) {
+    return res.status(500).json({ error: "An error occured", e });
   }
 };
 
@@ -125,7 +120,7 @@ exports.findAll = async (req, res) => {
   try {
     const responseDatas = await prisma.userAccount.findMany({
       where: {
-        isPasien_UA: true,
+        isOfficer_UA: true,
       },
       select: {
         UUID_UA: true,
@@ -133,15 +128,14 @@ exports.findAll = async (req, res) => {
         Name_UA: true,
         Phone_UA: true,
         Photo_UA: true,
-        NIK_UA: true,
+        NIP_UA: true,
         BirthDate_UA: true,
-        DataMedis: true,
       },
     });
 
     return res.status(200).json(responseDatas);
-  } catch (error) {
-    return res.status(500).json({ error: "An error occured", error });
+  } catch (e) {
+    return res.status(500).json({ error: "An error occured", e });
   }
 };
 
@@ -149,44 +143,31 @@ exports.deleteOne = async (req, res) => {
   try {
     const { uuid } = req.params;
 
-    const dataMedisEntry = await prisma.dataMedis.findFirst({
-      where: {
-        UUID_UA: uuid,
-      },
-    });
-
-    if (!dataMedisEntry) {
-      return res.status(404).send("Data Medis entry not found");
-    }
-
-    await prisma.dataMedis.delete({
-      where: {
-        UUID_DM: dataMedisEntry.UUID_DM,
-      },
-    });
-
     await prisma.userAccount.delete({
       where: {
+        isOfficer_UA: true,
         UUID_UA: uuid,
       },
     });
 
     return res.json({ message: "User deleted successfully" });
-  } catch (error) {
-    return res.status(500).json({ error: "An error occured" + error });
+  } catch (e) {
+    return res.status(500).json({ error: "An error occured" + e });
   }
 };
 
 exports.deleteAll = async (req, res) => {
   try {
-    await prisma.dataMedis.deleteMany({});
-
-    await prisma.userAccount.deleteMany({});
+    await prisma.userAccount.deleteMany({
+      where: {
+        isOfficer_UA: true,
+      },
+    });
 
     return res
       .status(200)
       .json({ message: "All user account successfully deleted" });
-  } catch (error) {
-    return res.status(500).json({ error: "An error occured" + error });
+  } catch (e) {
+    return res.status(500).json({ error: "An error occured" + e });
   }
 };
