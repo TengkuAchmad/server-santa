@@ -1,17 +1,34 @@
 // LIBRARY IMPORT
-const router = require("express").Router()
+const router = require("express").Router();
 
 // MIDDLEWARE IMPORT
-const { authenticateToken } = require("../middleware/middleware")
+const { authenticateToken } = require("../middleware/middleware");
 
 // CONTROLLER IMPORT
-const user_controller = require("../controllers/user.controller")
+const officer_controller = require("../controllers/officer.controller");
 
 // ROUTER CONFIGURATION
-router.get("/user-management", authenticateToken, user_controller.findOne);
-router.get("/user-management/all", authenticateToken, user_controller.findAll);
-router.delete("/user-management/:uuid", authenticateToken,user_controller.deleteOne);
-router.delete("/user-management", authenticateToken,user_controller.deleteAll);
-router.post("/user-management/auth", user_controller.auth);
-router.post("/user-management", user_controller.signup);
-module.exports = router
+router.get(
+  "/officer-management",
+  authenticateToken,
+  officer_controller.findOne
+);
+router.get(
+  "/officer-management/all",
+  authenticateToken,
+  officer_controller.findAll
+);
+router.delete(
+  "/officer-management/:uuid",
+  authenticateToken,
+  officer_controller.deleteOne
+);
+router.delete(
+  "/officer-management",
+  authenticateToken,
+  officer_controller.deleteAll
+);
+router.post("/officer-management/auth", officer_controller.auth);
+router.post("/officer-management", officer_controller.signup);
+
+module.exports = router;
