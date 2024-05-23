@@ -31,5 +31,9 @@ router.post(
   authenticateToken,
   ticket_controller.cancel
 );
-
+router.delete(
+  "/ticket-management",
+  authenticateToken,
+  ticket_controller.deleteAll
+);
 module.exports = router;
