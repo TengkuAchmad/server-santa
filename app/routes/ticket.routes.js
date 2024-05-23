@@ -10,6 +10,7 @@ const ticket_controller = require("../controllers/ticket.controller");
 // ROUTER CONFIGURATION
 router.post("/ticket-management", authenticateToken, ticket_controller.create);
 router.get("/ticket-management", authenticateToken, ticket_controller.findAll);
+router.get("/ticket-management", authenticateToken, ticket_controller.findOne);
 router.get(
   "/ticket-management/cancel",
   authenticateToken,

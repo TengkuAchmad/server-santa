@@ -52,6 +52,22 @@ exports.create = async (req, res) => {
   }
 };
 
+exports.findOne = async (req, res) => {
+  try {
+    const uuid = req.locals.user;
+
+    const responseData = await prisma.ticketing.findMany({
+      where: {
+        UUID_UA: uuid,
+      },
+    });
+
+    return res.status(200).json(responseData);
+  } catch (e) {
+    return res.status(500).json({ error: "An error occured" + e });
+  }
+};
+
 exports.findAll = async (req, res) => {
   try {
     const responseDatas = await prisma.ticketing.findMany({
@@ -156,5 +172,19 @@ exports.complete = async (req, res) => {
     return res
       .status(500)
       .json({ error: "An error occurred while completing the ticket" });
+  }
+};
+
+exports.deleteAll = async (req, res) => {
+  try {
+    await prisma.ticketing.deleteMany({});
+
+    return res
+      .status(200)
+      .json({ message: "Successfully deleted all tickets" });
+  } catch (e) {
+    return res
+      .status(500)
+      .json({ error: "An error occurred while deleting the ticket" });
   }
 };
