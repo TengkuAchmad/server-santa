@@ -83,7 +83,7 @@ exports.findOne = async (req, res) => {
     }
 
     const totalTickets = await prisma.ticketing.count();
-    const currentTicketNumber = parseInt(ticketData.Nomor_TC);
+    const currentTicketNumber = parseInt(ticketData.Nomor_TC, 10);
 
     const remainingTickets = totalTickets - currentTicketNumber;
 
