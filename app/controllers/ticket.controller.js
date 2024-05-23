@@ -56,11 +56,17 @@ exports.findOne = async (req, res) => {
   try {
     const uuid = req.locals.user;
 
-    const responseData = await prisma.ticketing.findUnique({
+    const responseData = await prisma.ticketing.findFirst({
       where: {
         UUID_UA: uuid,
       },
     });
+
+    if (!responseData) {
+      return res
+        .status(404)
+        .json({ message: "No tickets found for this user" });
+    }
 
     return res.status(200).json(responseData);
   } catch (e) {
