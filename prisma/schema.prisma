@@ -41,7 +41,7 @@ model DataMedis {
 model Ticketing {
   UUID_TC        String      @id
   UserAccount    UserAccount @relation(fields: [UUID_UA], references: [UUID_UA])
-  UUID_UA        String      @unique
+  UUID_UA        String     
   DateTime_TC    DateTime    @default(now())
   Nomor_TC       String
   isDone_TC      Boolean

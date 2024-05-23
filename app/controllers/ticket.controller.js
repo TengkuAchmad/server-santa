@@ -22,6 +22,19 @@ exports.create = async (req, res) => {
       });
     }
 
+    const existingTickets = await prisma.ticketing.findMany({
+      where: {
+        UUID_UA: id,
+        isWaiting_TC: true, 
+      },
+    });
+
+    if (existingTickets.length > 0) {
+      return res.status(409).json({
+        error: "User already has an open ticket. Please wait for your turn or contact support for assistance.",
+      });
+    }
+
     const lastTicket = await prisma.ticketing.findFirst({
       orderBy: { Nomor_TC: "desc" },
     });
@@ -48,9 +61,10 @@ exports.create = async (req, res) => {
       message: "Ticket created",
     });
   } catch (e) {
-    return res.status(500).json({ error: "An error occured" + e });
+    return res.status(500).json({ error: "An error occurred" });
   }
 };
+
 
 
 exports.findOne = async (req, res) => {
