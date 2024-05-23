@@ -77,15 +77,21 @@ exports.findOne = async (req, res) => {
     });
 
     if (!ticketData) {
-      return res
-        .status(404)
-        .json({ message: "No tickets found for this user" });
+      return res.status(404).json({ message: "No tickets found for this user" });
     }
 
-    const totalTickets = await prisma.ticketing.count();
     const currentTicketNumber = parseInt(ticketData.Nomor_TC, 10);
+    const precedingWaitingTickets = await prisma.ticketing.count({
+      where: {
+        AND: [
+          { Nomor_TC: { lt: currentTicketNumber } },
+          { isWaiting_TC: true },
+        ],
+      },
+    });
 
-    const remainingTickets = totalTickets - currentTicketNumber;
+    const totalTickets = await prisma.ticketing.count();
+    const remainingTickets = totalTickets - (precedingWaitingTickets + 1);
 
     const response = {
       ticketNumber: ticketData.Nomor_TC,
@@ -100,6 +106,7 @@ exports.findOne = async (req, res) => {
     return res.status(500).json({ error: "An error occurred" });
   }
 };
+
 
 exports.findAll = async (req, res) => {
   try {
