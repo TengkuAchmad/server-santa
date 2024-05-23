@@ -66,10 +66,12 @@ exports.findAll = async (req, res) => {
 
 exports.cancel = async (req, res) => {
   try {
-    const ticketId = req.params.id;
+    const ticketId = req.params;
 
     if (!ticketId) {
-      return res.status(400).send({ message: "Missing ticket ID in request parameters" });
+      return res
+        .status(400)
+        .send({ message: "Missing ticket ID in request parameters" });
     }
 
     const updatedTicket = await prisma.ticketing.update({
@@ -86,16 +88,19 @@ exports.cancel = async (req, res) => {
 
     return res.status(200).json({ message: "Ticket cancelled successfully" });
   } catch (error) {
-    return res.status(500).json({ error: "An error occurred while cancelling the ticket" });
+    return res
+      .status(500)
+      .json({ error: "An error occurred while cancelling the ticket" });
   }
 };
 
 exports.complete = async (req, res) => {
   try {
-    const ticketId = req.params.id; // Assuming the ticket ID is in the request parameter 'id'
-
+    const ticketId = req.params;
     if (!ticketId) {
-      return res.status(400).send({ message: "Missing ticket ID in request parameters" });
+      return res
+        .status(400)
+        .send({ message: "Missing ticket ID in request parameters" });
     }
 
     const updatedTicket = await prisma.ticketing.update({
@@ -114,7 +119,8 @@ exports.complete = async (req, res) => {
     return res.status(200).json({ message: "Ticket completed successfully" });
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ error: "An error occurred while completing the ticket" });
+    return res
+      .status(500)
+      .json({ error: "An error occurred while completing the ticket" });
   }
 };
-
