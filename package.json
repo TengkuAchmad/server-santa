@@ -16,8 +16,10 @@
     "netlify-cli": "^17.23.5",
     "netlify-lambda": "^2.0.16",
     "node-cron": "^3.0.3",
-    "prisma": "^5.14.0",
     "serverless-http": "^3.2.0",
     "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "prisma": "^5.14.0"
   }
 }

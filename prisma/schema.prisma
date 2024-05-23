@@ -8,34 +8,45 @@ datasource db {
 }
 
 model UserAccount {
-  UUID_UA         String             @id
-  Name_UA         String
-  Email_UA        String             @unique
-  Password_UA     String
-  BirthDate_UA    DateTime
-  Phone_UA        String
-  Photo_UA        String?
-  NIK_UA          String?
-  NIP_UA          String?
-  isPasien_UA     Boolean            @default(true)
-  isOfficer_UA    Boolean            @default(false)
-  isActive_UA     Boolean            @default(true)
-  LastLogin_UA    DateTime           @default(now())
-  createdAt       DateTime           @default(now())
-  updatedAt       DateTime           @updatedAt
-  DataMedis       DataMedis[]
+  UUID_UA      String      @id
+  Name_UA      String
+  Email_UA     String      @unique
+  Password_UA  String
+  BirthDate_UA DateTime
+  Phone_UA     String
+  Photo_UA     String?
+  NIK_UA       String?
+  NIP_UA       String?
+  isPasien_UA  Boolean     @default(true)
+  isOfficer_UA Boolean     @default(false)
+  isActive_UA  Boolean     @default(true)
+  LastLogin_UA DateTime    @default(now())
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+  DataMedis    DataMedis[]
+  Ticketing    Ticketing[]
 }
-
 
 model DataMedis {
-  UUID_DM         String             @id
-  UserAccount     UserAccount        @relation(fields: [UUID_UA], references: [UUID_UA])
-  UUID_UA         String
-  Diagnosis_DM    String?
-  Obat_DM         String?
-  Alergi_DM       String?
-  createdAt       DateTime           @default(now())
-  updatedAt       DateTime           @updatedAt
+  UUID_DM      String      @id
+  UserAccount  UserAccount @relation(fields: [UUID_UA], references: [UUID_UA])
+  UUID_UA      String
+  Diagnosis_DM String?
+  Obat_DM      String?
+  Alergi_DM    String?
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
 }
 
-
+model Ticketing {
+  UUID_TC        String      @id
+  UserAccount    UserAccount @relation(fields: [UUID_UA], references: [UUID_UA])
+  UUID_UA        String
+  DateTime_TC    DateTime    @default(now())
+  Nomor_TC       String
+  isDone_TC      Boolean
+  isCancelled_TC Boolean
+  isWaiting_TC   Boolean
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+}
