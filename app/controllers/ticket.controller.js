@@ -52,27 +52,40 @@ exports.create = async (req, res) => {
   }
 };
 
+
 exports.findOne = async (req, res) => {
   try {
     const uuid = req.locals.user;
 
-    const responseData = await prisma.ticketing.findFirst({
+    const ticketData = await prisma.ticketing.findUnique({
       where: {
         UUID_UA: uuid,
       },
     });
 
-    if (!responseData) {
-      return res
-        .status(404)
-        .json({ message: "No tickets found for this user" });
+    if (!ticketData) {
+      return res.status(404).json({ message: "No tickets found for this user" });
     }
 
-    return res.status(200).json(responseData);
+    const totalTickets = await prisma.ticketing.count();
+    const currentTicketNumber = parseInt(ticketData.Nomor_TC);
+
+    const remainingTickets = totalTickets - currentTicketNumber;
+
+    const response = {
+      ticketNumber: ticketData.Nomor_TC,
+      totalTickets: totalTickets,
+      remainingTickets: remainingTickets,
+      remainingQueueMessage: `Tersisa ${remainingTickets} antrian`,
+    };
+
+    return res.status(200).json(response);
   } catch (e) {
-    return res.status(500).json({ error: "An error occured" + e });
+    console.error(e); // Log the error for debugging
+    return res.status(500).json({ error: "An error occurred" });
   }
 };
+
 
 exports.findAll = async (req, res) => {
   try {
