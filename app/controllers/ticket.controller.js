@@ -64,6 +64,40 @@ exports.findAll = async (req, res) => {
   }
 };
 
+exports.findCancelled = async (req, res) => {
+  try {
+    const responseDatas = await prisma.ticketing.findMany({
+      where: {
+        isCancelled_TC: true,
+        isDone_TC: false,
+        isWaiting_TC: false,
+      },
+      orderBy: { Nomor_TC: "desc" },
+    });
+
+    return res.status(200).json(responseDatas);
+  } catch (error) {
+    return res.status(500).json({ error: "An error occurred" });
+  }
+};
+
+exports.findWaiting = async (req, res) => {
+  try {
+    const responseDatas = await prisma.ticketing.findMany({
+      where: {
+        isWaiting_TC: true,
+        isDone_TC: false,
+        isCancelled_TC: false,
+      },
+      orderBy: { Nomor_TC: "desc" },
+    });
+
+    return res.status(200).json(responseDatas);
+  } catch (error) {
+    return res.status(500).json({ error: "An error occurred" });
+  }
+};
+
 exports.cancel = async (req, res) => {
   try {
     const { uuid } = req.params;
