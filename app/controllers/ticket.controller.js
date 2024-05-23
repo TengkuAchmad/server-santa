@@ -66,16 +66,16 @@ exports.findAll = async (req, res) => {
 
 exports.cancel = async (req, res) => {
   try {
-    const ticketId = req.params;
+    const {uuid} = req.params;
 
-    if (!ticketId) {
+    if (!uuid) {
       return res
         .status(400)
         .send({ message: "Missing ticket ID in request parameters" });
     }
 
     const updatedTicket = await prisma.ticketing.update({
-      where: { id: ticketId },
+      where: { id: uuid },
       data: {
         isWaiting_TC: false,
         isCancelled_TC: true,
@@ -96,15 +96,15 @@ exports.cancel = async (req, res) => {
 
 exports.complete = async (req, res) => {
   try {
-    const ticketId = req.params;
-    if (!ticketId) {
+    const {uuid} = req.params;
+    if (!uuid) {
       return res
         .status(400)
         .send({ message: "Missing ticket ID in request parameters" });
     }
 
     const updatedTicket = await prisma.ticketing.update({
-      where: { id: ticketId },
+      where: { id: uuid },
       data: {
         isDone_TC: true,
         isWaiting_TC: false,
