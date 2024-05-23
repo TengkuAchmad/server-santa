@@ -56,7 +56,7 @@ exports.findOne = async (req, res) => {
   try {
     const uuid = req.locals.user;
 
-    const responseData = await prisma.ticketing.findMany({
+    const responseData = await prisma.ticketing.findUnique({
       where: {
         UUID_UA: uuid,
       },
