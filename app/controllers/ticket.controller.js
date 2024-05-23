@@ -25,13 +25,14 @@ exports.create = async (req, res) => {
     const existingTickets = await prisma.ticketing.findMany({
       where: {
         UUID_UA: id,
-        isWaiting_TC: true, 
+        isWaiting_TC: true,
       },
     });
 
     if (existingTickets.length > 0) {
       return res.status(409).json({
-        error: "User already has an open ticket. Please wait for your turn or contact support for assistance.",
+        error:
+          "User already has an open ticket. Please wait for your turn or contact support for assistance.",
       });
     }
 
@@ -65,20 +66,20 @@ exports.create = async (req, res) => {
   }
 };
 
-
-
 exports.findOne = async (req, res) => {
   try {
     const uuid = req.locals.user;
 
-    const ticketData = await prisma.ticketing.findUnique({
+    const ticketData = await prisma.ticketing.findFirst({
       where: {
         UUID_UA: uuid,
       },
     });
 
     if (!ticketData) {
-      return res.status(404).json({ message: "No tickets found for this user" });
+      return res
+        .status(404)
+        .json({ message: "No tickets found for this user" });
     }
 
     const totalTickets = await prisma.ticketing.count();
@@ -99,7 +100,6 @@ exports.findOne = async (req, res) => {
     return res.status(500).json({ error: "An error occurred" });
   }
 };
-
 
 exports.findAll = async (req, res) => {
   try {
