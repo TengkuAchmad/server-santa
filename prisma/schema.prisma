@@ -12,7 +12,7 @@ model UserAccount {
   Name_UA      String
   Email_UA     String      @unique
   Password_UA  String
-  BirthDate_UA DateTime
+  BirthDate_UA String
   Phone_UA     String
   Photo_UA     String?
   NIK_UA       String?
