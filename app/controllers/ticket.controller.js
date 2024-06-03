@@ -158,9 +158,18 @@ exports.findWaiting = async (req, res) => {
       },
     });
 
+    const completedCount = await prisma.ticketing.count({
+      where: {
+        isWaiting_TC: false,
+        isDone_TC: true,
+        isCancelled_TC: false
+      }
+    });
+
     const response = {
       waitingTicket: responseDatas[0],
       waitingCount: waitingCount, 
+      completedCount: completedCount
     };
 
     return res.status(200).json(response);
