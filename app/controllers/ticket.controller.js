@@ -147,9 +147,24 @@ exports.findWaiting = async (req, res) => {
         isCancelled_TC: false,
       },
       orderBy: { Nomor_TC: "desc" },
+      take: 1
     });
 
-    return res.status(200).json(responseDatas);
+    const waitingCount = await prisma.ticketing.count({
+      where: {
+        isWaiting_TC: true,
+        isDone_TC: false,
+        isCancelled_TC: false,
+      },
+    });
+
+    const response = {
+      waitingTicket: responseData[0],
+      waitingCount: waitingCount, 
+    };
+
+    return res.status(200).json(response);
+    
   } catch (error) {
     return res.status(500).json({ error: "An error occurred" });
   }
@@ -216,31 +231,6 @@ exports.complete = async (req, res) => {
   }
 };
 
-exports.findLatest = async (req, res) => {
-  try {
-    const uuid = req.locals.user;
-
-    const latestTicket = await prisma.$queryRaw`
-      SELECT * 
-      FROM Ticketing 
-      WHERE UUID_UA = ${uuid} 
-      AND isDone_TC = FALSE 
-      AND isCancelled_TC = FALSE 
-      AND isWaiting_TC = TRUE
-      ORDER BY CAST(Nomor_TC AS UNSIGNED) ASC
-      LIMIT 1
-    `;
-
-    if (!latestTicket || latestTicket.length === 0) {
-      return res.status(404).json({ message: "No available tickets found" });
-    }
-
-    return res.status(200).json({ latestTicket: latestTicket[0] });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({ error: "An error occurred" });
-  }
-};
 
 
 exports.deleteAll = async (req, res) => {

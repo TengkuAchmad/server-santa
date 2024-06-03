@@ -11,7 +11,6 @@ const ticket_controller = require("../controllers/ticket.controller");
 router.post("/ticket-management", authenticateToken, ticket_controller.create);
 router.get("/ticket-management/all", authenticateToken, ticket_controller.findAll);
 router.get("/ticket-management", authenticateToken, ticket_controller.findOne);
-router.get("/ticket-management/latest", authenticateToken, ticket_controller.findLatest )
 router.get(
   "/ticket-management/cancel",
   authenticateToken,
