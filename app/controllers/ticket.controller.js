@@ -159,12 +159,12 @@ exports.findWaiting = async (req, res) => {
     });
 
     const response = {
-      waitingTicket: responseData[0],
+      waitingTicket: responseDatas[0],
       waitingCount: waitingCount, 
     };
 
     return res.status(200).json(response);
-    
+
   } catch (error) {
     return res.status(500).json({ error: "An error occurred" });
   }
