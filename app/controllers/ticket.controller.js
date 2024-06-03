@@ -67,7 +67,6 @@ exports.create = async (req, res) => {
 };
 
 exports.findOne = async (req, res) => {
-  // PERLU DIPERBAIKI
   try {
     const uuid = req.locals.user;
 
@@ -84,9 +83,17 @@ exports.findOne = async (req, res) => {
     }
 
     const totalTickets = await prisma.ticketing.count();
-    const currentTicketNumber = parseInt(ticketData.Nomor_TC);
 
-    const remainingTickets = totalTickets - currentTicketNumber;
+    const remainingTickets = await prisma.ticketing.count({
+      where: {
+        UUID_UA: uuid,
+        isWaiting_TC: true,
+        NOT: [
+          { isCancelled_TC: true },
+          { isDone_TC: true }
+        ]
+      }
+    });
 
     const response = {
       ticketNumber: ticketData.Nomor_TC,
