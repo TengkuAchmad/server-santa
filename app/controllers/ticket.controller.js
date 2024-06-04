@@ -129,6 +129,23 @@ exports.findAll = async (req, res) => {
   }
 };
 
+exports.findInfo = async (req, res) => {
+  try {
+    const { uuid } = req.params;
+
+    const responseDatas = await prisma.ticketing.findFirst({
+      where: {
+        UUID_UA: uuid,
+      }
+    });
+
+    return res.status(200).json(responseDatas)
+
+  }  catch (error) {
+    return res.status(500).json({ error: "An error occurred" });
+  }
+}
+
 exports.findCancelled = async (req, res) => {
   try {
     const responseDatas = await prisma.ticketing.findMany({
