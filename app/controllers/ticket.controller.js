@@ -86,7 +86,7 @@ exports.findOne = async (req, res) => {
         remainingQueueMessage: `Tersisa 0 antrian`,
       };
       return res
-        .status(404)
+        .status(200)
         .json(responseNull);
     }
 
