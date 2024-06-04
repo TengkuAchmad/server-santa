@@ -13,6 +13,7 @@ router.get("/ticket-management/all", authenticateToken, ticket_controller.findAl
 router.get("/ticket-management/:uuid", authenticateToken, ticket_controller.findInfo);
 router.get("/ticket-management", authenticateToken, ticket_controller.findOne);
 router.get("/ticket-management/find/waiting", authenticateToken, ticket_controller.findWaiting);
+router.get("/ticket-management/list/waiting", authenticateToken, ticket_controller.waitingList);
 router.post("/ticket-management/complete/:uuid",authenticateToken, ticket_controller.complete);
 router.post("/ticket-management/cancel/:uuid",authenticateToken, ticket_controller.cancel);
 router.delete("/ticket-management",authenticateToken ,ticket_controller.deleteAll);

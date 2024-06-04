@@ -190,6 +190,26 @@ exports.findWaiting = async (req, res) => {
   }
 };
 
+exports.waitingList = async (req, res) => {
+  try {
+    const waitingList = await prisma.ticketing.findMany({
+      where:{
+        isWaiting_TC : true,
+      }, select : {
+        Nomor_TC: true,
+        UserAccount: true,
+      }, orderBy : {
+        Nomor_TC: "desc"
+      }
+    });
+
+    return res.status(200).json(waitingList)
+
+  } catch (error) {
+    return res.status(500).json({ error: "An error occurred" });
+  }
+}
+
 exports.cancel = async (req, res) => {
   try {
     const { uuid } = req.params;
