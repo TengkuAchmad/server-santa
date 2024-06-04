@@ -153,7 +153,7 @@ exports.findCancelled = async (req, res) => {
     const responseDatas = await prisma.ticketing.findMany({
       where: {
         isCancelled_TC: true,
-        isDone_TC: true,
+        isDone_TC: false,
         isWaiting_TC: false,
       },
       orderBy: { Nomor_TC: "desc" },
@@ -172,8 +172,10 @@ exports.findWaiting = async (req, res) => {
         isWaiting_TC: true,
         isDone_TC: false,
         isCancelled_TC: false,
-      }
-    })
+      },
+      orderBy: { Nomor_TC: "desc" },
+      take: 1
+    });
 
     const waitingCount = await prisma.ticketing.count({
       where: {
@@ -181,7 +183,7 @@ exports.findWaiting = async (req, res) => {
         isDone_TC: false,
         isCancelled_TC: false,
       },
-    }) 
+    });
 
     const completedCount = await prisma.ticketing.count({
       where: {
@@ -189,15 +191,15 @@ exports.findWaiting = async (req, res) => {
         isDone_TC: true,
         isCancelled_TC: false
       }
-    })
+    });
 
     const response = {
-      waitingTicket: responseDatas[0],
+      waitingTicket: responseDatas[0] || 0,
       waitingCount: waitingCount, 
       completedCount: completedCount
     };
 
-    return res.status(200).json(responseDatas);
+    return res.status(200).json(response);
 
   } catch (error) {
     return res.status(500).json({ error: "An error occurred" });
