@@ -50,7 +50,8 @@ exports.create = async (req, res) => {
       data: {
         UUID_TC: uuidv4(),
         UUID_UA: id,
-        DateTime_TC: req.body.datetime,
+        Date_UA: req.body.date,
+        Time_UA: req.body.time,
         Nomor_TC: newTicketNumber,
         isDone_TC: false,
         isCancelled_TC: false,
@@ -59,6 +60,7 @@ exports.create = async (req, res) => {
     });
 
     return res.status(200).json({
+      success: true,
       message: "Ticket created",
     });
   } catch (e) {

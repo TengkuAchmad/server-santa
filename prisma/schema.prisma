@@ -42,7 +42,8 @@ model Ticketing {
   UUID_TC        String      @id
   UserAccount    UserAccount @relation(fields: [UUID_UA], references: [UUID_UA])
   UUID_UA        String     
-  DateTime_TC    DateTime    @default(now())
+  Date_TC        String
+  Time_TC        String
   Nomor_TC       String
   isDone_TC      Boolean
   isCancelled_TC Boolean
