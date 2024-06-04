@@ -176,7 +176,7 @@ exports.findWaiting = async (req, res) => {
         UUID_UA: true,
         Nomor_TC: true
       },
-      orderBy: { createdAt: "asc" },
+      // orderBy: { createdAt: "asc" },
       take: 1
     })
 
