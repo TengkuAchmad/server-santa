@@ -172,8 +172,11 @@ exports.findWaiting = async (req, res) => {
         isWaiting_TC: true,
         isDone_TC: false,
         isCancelled_TC: false,
+      }, select: {
+        UUID_UA: true,
+        Nomor_TC: true
       },
-      orderBy: { createdAt: "desc" },
+      orderBy: { createdAt: "asc" },
       take: 1
     })
 
@@ -199,7 +202,7 @@ exports.findWaiting = async (req, res) => {
       completedCount: completedCount
     };
 
-    return res.status(200).json(response);
+    return res.status(200).json(responseDatas);
 
   } catch (error) {
     return res.status(500).json({ error: "An error occurred" });
