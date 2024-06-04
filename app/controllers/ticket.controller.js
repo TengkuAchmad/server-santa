@@ -215,7 +215,7 @@ exports.cancel = async (req, res) => {
     }
 
     const updatedTicket = await prisma.ticketing.updateMany({
-      where: { UUID_UA: uuid },
+      where: { UUID_UA: uuid, isDone_TC: false},
       data: {
         isWaiting_TC: false,
         isCancelled_TC: true,
