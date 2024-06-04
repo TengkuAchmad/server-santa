@@ -280,21 +280,3 @@ exports.deleteAll = async (req, res) => {
       .json({ error: "An error occurred while deleting the ticket" });
   }
 };
-
-exports.deleteOne = async (req, res) => {
-  try {
-    const { uuid } =  req.params
-
-    await prisma.ticketing.delete({
-      where: {
-        UUID_UA: uuid
-      }
-    })
-
-    return res.status(200).json({ message: "Succesfully deleted the tickets"});
-  } catch (e) {
-    return res
-      .status(500)
-      .json({ error: "An error occurred while deleting the ticket" });
-  }
-}

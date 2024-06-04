@@ -17,5 +17,4 @@ router.get("/ticket-management/waiting",authenticateToken,ticket_controller.find
 router.post("/ticket-management/complete/:uuid",authenticateToken,ticket_controller.complete);
 router.post("/ticket-management/cancel/:uuid",authenticateToken,ticket_controller.cancel);
 router.delete("/ticket-management",authenticateToken,ticket_controller.deleteAll);
-router.delete("/ticket-management/:uuid", authenticateToken, ticket_controller.deleteOne);
 module.exports = router;
