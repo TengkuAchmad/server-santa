@@ -154,7 +154,7 @@ exports.findWaiting = async (req, res) => {
       where: {
         isWaiting_TC: true,
       },
-      orderBy: { Nomor_TC: "desc"},
+      orderBy: { Nomor_TC: "asc"},
       take: 1
     });
 
@@ -195,11 +195,19 @@ exports.waitingList = async (req, res) => {
     const waitingList = await prisma.ticketing.findMany({
       where:{
         isWaiting_TC : true,
-      }, select : {
-        Nomor_TC: true,
-        UserAccount: true,
-      }, orderBy : {
-        Nomor_TC: "desc"
+      }, select : [
+        {
+          Nomor_TC: true,
+        },
+        {
+          UserAccount: {
+            Name_UA: true,
+            NIK_UA: true
+          }
+        }
+      ],
+      orderBy : {
+        Nomor_TC: "asc"
       }
     });
 
