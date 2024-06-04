@@ -153,8 +153,7 @@ exports.findCancelled = async (req, res) => {
     const responseDatas = await prisma.ticketing.findMany({
       where: {
         isCancelled_TC: true,
-      },
-      orderBy: { Nomor_TC: "desc" },
+      }
     });
 
     return res.status(200).json(responseDatas);
@@ -168,11 +167,8 @@ exports.findWaiting = async (req, res) => {
     const responseDatas = await prisma.ticketing.findMany({
       where: {
         isWaiting_TC: true,
-        isDone_TC: false,
-        isCancelled_TC: false,
       },
       orderBy: { Nomor_TC: "desc" },
-      take: 1
     });
 
     const waitingCount = await prisma.ticketing.count({
