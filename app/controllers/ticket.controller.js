@@ -75,6 +75,9 @@ exports.findOne = async (req, res) => {
     const ticketData = await prisma.ticketing.findFirst({
       where: {
         UUID_UA: uuid,
+        isWaiting_TC: true,
+        isCancelled_TC: false,
+        isDone_TC: false
       },
     });
 
