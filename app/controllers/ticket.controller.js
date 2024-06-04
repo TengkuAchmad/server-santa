@@ -81,17 +81,7 @@ exports.findOne = async (req, res) => {
       },
     });
 
-    if (!ticketData) {
-      const responseNull = {
-        ticketNumber: "0",
-        totalTickets: 0,
-        remainingTickets: 0,
-        remainingQueueMessage: `Tersisa 0 antrian`,
-      };
-      return res
-        .status(200)
-        .json(responseNull);
-    }
+    
 
     const totalTickets = await prisma.ticketing.count();
 
@@ -102,13 +92,22 @@ exports.findOne = async (req, res) => {
       }
     });
 
-    const response = {
-      ticketNumber: ticketData.Nomor_TC,
-      totalTickets: totalTickets,
-      remainingTickets: remainingTickets,
-      remainingQueueMessage: `Tersisa ${remainingTickets} antrian`,
-    };
-
+    if (!ticketData) {
+      const response = {
+        ticketNumber: 0,
+        totalTickets: totalTickets,
+        remainingTickets: remainingTickets,
+        remainingQueueMessage: `Tersisa ${remainingTickets} antrian`,
+      };
+    } else {
+      const response = {
+        ticketNumber: ticketData.Nomor_TC,
+        totalTickets: totalTickets,
+        remainingTickets: remainingTickets,
+        remainingQueueMessage: `Tersisa ${remainingTickets} antrian`,
+      };
+    }
+    
     return res.status(200).json(response);
   } catch (e) {
     console.error(e); // Log the error for debugging
