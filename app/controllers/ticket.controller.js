@@ -150,11 +150,7 @@ exports.findInfo = async (req, res) => {
 
 exports.findCancelled = async (req, res) => {
   try {
-    const responseDatasCancelled = await prisma.ticketing.findMany({
-      where: {
-        isCancelled_TC: true,
-      }
-    });
+    const responseDatasCancelled = await prisma.ticketing.findMany();
 
     return res.status(200).json(responseDatasCancelled);
   } catch (error) {
