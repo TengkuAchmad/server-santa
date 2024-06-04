@@ -150,13 +150,13 @@ exports.findInfo = async (req, res) => {
 
 exports.findWaiting = async (req, res) => {
   try{
-    const responseDatas = await prisma.ticketing.findMany({
+    const waitingTickets = await prisma.ticketing.findMany({
       where: {
         isWaiting_TC: true,
-      }
+      },
     });
 
-    return res.status(200).json(responseDatas)
+    return res.status(200).json(waitingTickets);
   } catch (error) {
     return res.status(500).json({ error: "An error occurred" });
   }
