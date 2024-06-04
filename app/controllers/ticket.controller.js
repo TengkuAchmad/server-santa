@@ -99,6 +99,7 @@ exports.findOne = async (req, res) => {
         remainingTickets: remainingTickets,
         remainingQueueMessage: `Tersisa ${remainingTickets} antrian`,
       };
+      return res.status(200).json(response);
     } else {
       const response = {
         ticketNumber: ticketData.Nomor_TC,
@@ -106,9 +107,9 @@ exports.findOne = async (req, res) => {
         remainingTickets: remainingTickets,
         remainingQueueMessage: `Tersisa ${remainingTickets} antrian`,
       };
+      return res.status(200).json(response);
     }
     
-    return res.status(200).json(response);
   } catch (e) {
     console.error(e); // Log the error for debugging
     return res.status(500).json({ error: "An error occurred" });
