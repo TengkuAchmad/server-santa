@@ -172,9 +172,6 @@ exports.findWaiting = async (req, res) => {
         isWaiting_TC: true,
         isDone_TC: false,
         isCancelled_TC: false,
-      }, select: {
-        UUID_UA: true,
-        Nomor_TC: true
       }
     })
 
