@@ -152,7 +152,7 @@ exports.findCancelled = async (req, res) => {
   try {
     const responseDatas = await prisma.ticketing.findMany({
       where: {
-        isCancelled_TC: true,
+        isCancelled_TC: 1,
       }
     });
 
@@ -260,8 +260,6 @@ exports.complete = async (req, res) => {
       .json({ error: "An error occurred while completing the ticket" });
   }
 };
-
-
 
 exports.deleteAll = async (req, res) => {
   try {
