@@ -16,7 +16,7 @@ exports.create = async (req, res) => {
   try {
     const id = req.locals.user;
 
-    if (!req.body.datetime) {
+    if (!req.body.date || !req.body.time) {
       return res.status(400).send({
         message: "Invalid request on body",
       });
