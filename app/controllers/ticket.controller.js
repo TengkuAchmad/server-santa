@@ -154,9 +154,37 @@ exports.findWaiting = async (req, res) => {
       where: {
         isWaiting_TC: true,
       },
+      orderBy: { Nomor_TC: "desc"},
+      take: 1
     });
 
-    return res.status(200).json(waitingTickets);
+    const waitingTicketsCount = await prisma.ticketing.count({
+      where: {
+        isWaiting_TC: true
+      }
+    });
+
+    const completedTicketsCount = await prisma.ticketing.count({
+      where: {
+        isDone_TC: true
+      }
+    });
+
+    if (!waitingTickets) {
+      const response = {
+        "waitingTicket" : waitingTickets.Nomor_TC,
+        "waitingCount": waitingTicketsCount,
+        "completedCount": completedTicketsCount,
+      }
+      return res.status(200).json(response);
+    } else {
+      const response = {
+        "waitingTicket" : 0,
+        "waitingCount": 0,
+        "completedCount": completedTicketsCount,
+      }
+      return res.status(200).json(response);
+    }
   } catch (error) {
     return res.status(500).json({ error: "An error occurred" });
   }
