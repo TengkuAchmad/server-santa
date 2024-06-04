@@ -173,7 +173,7 @@ exports.findWaiting = async (req, res) => {
         isDone_TC: false,
         isCancelled_TC: false,
       },
-      orderBy: { Nomor_TC: "desc" },
+      orderBy: { createdAt: "desc" },
       take: 1
     }) || [];
 
