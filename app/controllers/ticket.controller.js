@@ -136,6 +136,9 @@ exports.findInfo = async (req, res) => {
     const responseDatas = await prisma.ticketing.findFirst({
       where: {
         UUID_UA: uuid,
+        isWaiting_TC: true,
+        isCancelled_TC: false,
+        isDone_TC: false
       }
     });
 
