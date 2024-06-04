@@ -200,6 +200,7 @@ exports.waitingList = async (req, res) => {
         Nomor_TC: true,
         UserAccount: {
           select: {
+            UUID_UA: true,
             Name_UA: true,
             NIK_UA: true
           },
