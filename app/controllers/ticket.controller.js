@@ -283,7 +283,7 @@ exports.deleteAll = async (req, res) => {
 
 exports.deleteOne = async (req, res) => {
   try {
-    const { uuid } =  req.locals.user;
+    const { uuid } =  req.params
 
     await prisma.ticketing.delete({
       where: {
