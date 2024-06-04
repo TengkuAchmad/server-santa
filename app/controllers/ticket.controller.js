@@ -175,7 +175,7 @@ exports.findWaiting = async (req, res) => {
       },
       orderBy: { Nomor_TC: "desc" },
       take: 1
-    });
+    }) || [];
 
     const waitingCount = await prisma.ticketing.count({
       where: {
@@ -183,7 +183,7 @@ exports.findWaiting = async (req, res) => {
         isDone_TC: false,
         isCancelled_TC: false,
       },
-    });
+    }) || 0;
 
     const completedCount = await prisma.ticketing.count({
       where: {
@@ -191,10 +191,10 @@ exports.findWaiting = async (req, res) => {
         isDone_TC: true,
         isCancelled_TC: false
       }
-    });
+    }) || 0;
 
     const response = {
-      waitingTicket: responseDatas[0],
+      waitingTicket: responseDatas[0] || 0,
       waitingCount: waitingCount, 
       completedCount: completedCount
     };
