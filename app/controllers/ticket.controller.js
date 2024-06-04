@@ -99,10 +99,6 @@ exports.findOne = async (req, res) => {
       where: {
         UUID_UA: uuid,
         isWaiting_TC: true,
-        NOT: [
-          { isCancelled_TC: true },
-          { isDone_TC: true }
-        ]
       }
     });
 
