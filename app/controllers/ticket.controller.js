@@ -79,9 +79,15 @@ exports.findOne = async (req, res) => {
     });
 
     if (!ticketData) {
+      const responseNull = {
+        ticketNumber: "0",
+        totalTickets: 0,
+        remainingTickets: 0,
+        remainingQueueMessage: `Tersisa 0 antrian`,
+      };
       return res
         .status(404)
-        .json({ message: "No tickets found for this user" });
+        .json(responseNull);
     }
 
     const totalTickets = await prisma.ticketing.count();
