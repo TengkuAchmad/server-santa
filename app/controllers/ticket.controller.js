@@ -50,8 +50,8 @@ exports.create = async (req, res) => {
       data: {
         UUID_TC: uuidv4(),
         UUID_UA: id,
-        Date_UA: req.body.date,
-        Time_UA: req.body.time,
+        Date_TC: req.body.date,
+        Time_TC: req.body.time,
         Nomor_TC: newTicketNumber,
         isDone_TC: false,
         isCancelled_TC: false,
