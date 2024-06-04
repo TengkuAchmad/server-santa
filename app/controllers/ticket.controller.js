@@ -175,9 +175,7 @@ exports.findWaiting = async (req, res) => {
       }, select: {
         UUID_UA: true,
         Nomor_TC: true
-      },
-      // orderBy: { createdAt: "asc" },
-      take: 1
+      }
     })
 
     const waitingCount = await prisma.ticketing.count({
