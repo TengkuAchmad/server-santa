@@ -214,7 +214,7 @@ exports.cancel = async (req, res) => {
         .send({ message: "Missing ticket ID in request parameters" });
     }
 
-    const updatedTicket = await prisma.ticketing.update({
+    const updatedTicket = await prisma.ticketing.updateMany({
       where: { UUID_UA: uuid },
       data: {
         isWaiting_TC: false,
