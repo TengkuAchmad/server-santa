@@ -175,7 +175,7 @@ exports.findWaiting = async (req, res) => {
 
     if (waitingTickets.length > 0) {
       const response = {
-        "waitingTicket" : waitingTickets.Nomor_TC,
+        "waitingTicket" : waitingTickets,
         "waitingCount": waitingTicketsCount,
         "completedCount": completedTicketsCount,
       }
