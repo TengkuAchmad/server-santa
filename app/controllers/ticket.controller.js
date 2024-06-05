@@ -154,6 +154,9 @@ exports.findWaiting = async (req, res) => {
       where: {
         isWaiting_TC: true,
       },
+      select: {
+        Nomor_TC: true
+      },
       orderBy: { Nomor_TC: "asc"},
       take: 1
     });
@@ -185,8 +188,6 @@ exports.findWaiting = async (req, res) => {
       }
       return res.status(200).json(response);
     }
-
-    return res.status(200).json(waitingTickets)
 
   } catch (error) {
     return res.status(500).json({ error: "An error occurred" });
