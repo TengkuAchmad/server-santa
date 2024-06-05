@@ -154,9 +154,6 @@ exports.findWaiting = async (req, res) => {
       where: {
         isWaiting_TC: true,
       },
-      select: {
-        Nomor_TC: true
-      },
       orderBy: { Nomor_TC: "asc"},
       take: 1
     });
@@ -175,7 +172,7 @@ exports.findWaiting = async (req, res) => {
 
     if (waitingTickets.length > 0) {
       const response = {
-        "waitingTicket" : waitingTickets,
+        "waitingTicket" : waitingTickets[0].Nomor_TC,
         "waitingCount": waitingTicketsCount,
         "completedCount": completedTicketsCount,
       }
