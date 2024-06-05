@@ -40,9 +40,12 @@ exports.create = async (req, res) => {
       orderBy: { Nomor_TC: "desc" },
     });
 
-    let newTicketNumber = "001";
+    let newTicketNumber;
+
     if (lastTicket == null) {
-      const currentNumber = parseInt(lastTicket.Nomor_TC.slice(2));
+      newTicketNumber = "001";
+    } else {
+      const currentNumber = parseInt(lastTicket.Nomor_TC);
       newTicketNumber = String(currentNumber + 1).padStart(3, "0");
     }
 
