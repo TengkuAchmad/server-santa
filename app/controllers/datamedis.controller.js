@@ -58,7 +58,7 @@ exports.create = async (req, res) => {
             }
         });
 
-        await prisma.ticketing.update({
+        await prisma.ticketing.updateMany({
             where: {
                 UUID_UA: uuidUser[0].UUID_UA,
                 isWaiting_TC: true
