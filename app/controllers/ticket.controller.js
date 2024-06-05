@@ -64,7 +64,7 @@ exports.create = async (req, res) => {
       message: "Ticket created",
     });
   } catch (e) {
-    return res.status(500).json({ error: "An error occurred" });
+    return res.status(500).json({ error: "An error occurred" + e.message });
   }
 };
 
