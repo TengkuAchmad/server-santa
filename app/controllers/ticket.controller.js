@@ -158,33 +158,36 @@ exports.findWaiting = async (req, res) => {
       take: 1
     });
 
-    const waitingTicketsCount = await prisma.ticketing.count({
-      where: {
-        isWaiting_TC: true
-      }
-    });
+    // const waitingTicketsCount = await prisma.ticketing.count({
+    //   where: {
+    //     isWaiting_TC: true
+    //   }
+    // });
 
-    const completedTicketsCount = await prisma.ticketing.count({
-      where: {
-        isDone_TC: true
-      }
-    });
+    // const completedTicketsCount = await prisma.ticketing.count({
+    //   where: {
+    //     isDone_TC: true
+    //   }
+    // });
 
-    if (!waitingTickets) {
-      const response = {
-        "waitingTicket" : waitingTickets.Nomor_TC,
-        "waitingCount": waitingTicketsCount,
-        "completedCount": completedTicketsCount,
-      }
-      return res.status(200).json(response);
-    } else {
-      const response = {
-        "waitingTicket" : 0,
-        "waitingCount": 0,
-        "completedCount": completedTicketsCount,
-      }
-      return res.status(200).json(response);
-    }
+    // if (!waitingTickets) {
+    //   const response = {
+    //     "waitingTicket" : waitingTickets.Nomor_TC,
+    //     "waitingCount": waitingTicketsCount,
+    //     "completedCount": completedTicketsCount,
+    //   }
+    //   return res.status(200).json(response);
+    // } else {
+    //   const response = {
+    //     "waitingTicket" : 0,
+    //     "waitingCount": 0,
+    //     "completedCount": completedTicketsCount,
+    //   }
+    //   return res.status(200).json(response);
+    // }
+
+    return res.status(200).json(waitingTickets)
+    
   } catch (error) {
     return res.status(500).json({ error: "An error occurred" });
   }
