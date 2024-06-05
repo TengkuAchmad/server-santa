@@ -38,12 +38,12 @@ exports.create = async (req, res) => {
             });
         };
 
-        const uuidUser = await prisma.userAccount.findFirst({
+        const uuidUser = await prisma.userAccount.findMany({
             where:{
                 NIK_UA: req.body.nik
             }, select : {
                 UUID_UA: true
-            }
+            }, take: 1
         })
         
         let uuid            = uuidv4();
