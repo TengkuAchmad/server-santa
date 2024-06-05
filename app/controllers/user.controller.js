@@ -99,13 +99,6 @@ exports.signup = async (req, res) => {
             }
         });
 
-        await prisma.dataMedis.create({
-            data: {
-                UUID_DM: uuidv4(),
-                UUID_UA: uuid,
-            }
-        })
-
         return res.status(201).send({
             message: "User created successfully"
         });
