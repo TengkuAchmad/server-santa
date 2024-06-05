@@ -41,7 +41,7 @@ exports.create = async (req, res) => {
     });
 
     let newTicketNumber = "001";
-    if (lastTicket) {
+    if (lastTicket.length > 0) {
       const currentNumber = parseInt(lastTicket.Nomor_TC.slice(2));
       newTicketNumber = String(currentNumber + 1).padStart(3, "0");
     }
