@@ -178,3 +178,23 @@ exports.deleteAll = async(req, res) => {
         return res.status(500).json({error : "An error occured" + error});
     }
 }
+
+exports.findCheckup = async(req, res) => {
+    try {
+        const responseDatas = await prisma.userAccount.findMany({
+            where: {
+                isPasien_UA: true,
+                DataMedis: {
+                    some: {},
+                },
+            }, select : {
+                NIK_UA: true,
+                Name_UA: true
+            }
+        })
+
+        return res.status(200).json(responseDatas)
+    } catch (error) {
+        return res.status(500).json({error: "An error occured", error});
+    }
+}
