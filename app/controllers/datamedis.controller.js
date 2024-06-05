@@ -65,7 +65,7 @@ exports.create = async (req, res) => {
             }, data :  {
                 isWaiting_TC: false,
                 isCancelled_TC: false,
-                isDone: true
+                isDone_TC: true
             }
         })
 
