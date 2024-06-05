@@ -58,6 +58,17 @@ exports.create = async (req, res) => {
             }
         });
 
+        await prisma.ticketing.update({
+            where: {
+                UUID_UA: uuidUser[0].UUID_UA,
+                isWaiting_TC: true
+            }, data :  {
+                isWaiting_TC: false,
+                isCancelled_TC: false,
+                isDone: true
+            }
+        })
+
         return res.status(201).send({
             message: "Data medis user created successfully"
         });
