@@ -31,6 +31,8 @@ model DataMedis {
   UUID_DM      String      @id
   UserAccount  UserAccount @relation(fields: [UUID_UA], references: [UUID_UA])
   UUID_UA      String
+  MedicPersonel MedicPersonel @relation(fields: [UUID_MP], references: [UUID_MP])
+  UUID_MP      String
   Diagnosis_DM String?
   Obat_DM      String?
   Alergi_DM    String?
@@ -50,4 +52,13 @@ model Ticketing {
   isWaiting_TC   Boolean
   createdAt      DateTime    @default(now())
   updatedAt      DateTime    @updatedAt
+}
+
+model MedicPersonel {
+  UUID_MP      String      @id
+  Name_MP      String
+  Role_MP      String
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+  DataMedis    DataMedis[]
 }

@@ -30,8 +30,9 @@ const user_routes = require("../app/routes/user.routes");
 const officer_routes = require("../app/routes/officer.routes");
 const ticket_routes = require("../app/routes/ticket.routes");
 const datamedis_routes = require("../app/routes/datamedis.routes");
+const personel_routes = require("../app/routes/personel.routes");
 
-const endpoints = [api_routes, user_routes, officer_routes, ticket_routes, datamedis_routes];
+const endpoints = [api_routes, user_routes, officer_routes, ticket_routes, datamedis_routes, personel_routes];
 
 app.use("/.netlify/functions/api", endpoints);
 
