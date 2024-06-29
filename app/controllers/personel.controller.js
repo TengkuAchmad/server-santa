@@ -39,7 +39,7 @@ exports.findAll = async (req, res) => {
     try {
         const personel = await prisma.medicPersonel.findMany();
         
-        return res.status(200, json(personel))
+        return res.status(200).json(personel)
     } catch (e) {
         return res.status(500).json({ error: "An error occured", e });
     }
