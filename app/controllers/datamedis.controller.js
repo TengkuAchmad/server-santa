@@ -82,7 +82,11 @@ exports.findAll = async (req, res) => {
     try {
         const responseDatas = await prisma.dataMedis.findMany({
             include: {
-                MedicPersonel: true,
+                MedicPersonel: {
+                    select: {
+                        Name_MP: true,
+                    }
+                },
             }
         });
 
