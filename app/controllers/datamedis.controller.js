@@ -10,9 +10,7 @@ const { JWT_SECRET }    = process.env;
 // ORM
 const prisma            = new PrismaClient();
 
-
 // FUNCTION IMPORT
-
 exports.findOne = async(req, res) => {
     try {
         const id = req.locals.user
@@ -32,7 +30,7 @@ exports.findOne = async(req, res) => {
 
 exports.create = async (req, res) => {
     try {
-        if (!req.body.nik || !req.body.diagnosis || !req.body.obat || !req.body.alergi ) {
+        if (!req.body.nik || !req.body.diagnosis || !req.body.obat || !req.body.alergi || !req.body.id ) {
             return res.status(400).send({
                 message: "Invalid request on body"
             });
@@ -52,6 +50,7 @@ exports.create = async (req, res) => {
             data : {
                 UUID_DM: uuid,
                 UUID_UA: uuidUser[0].UUID_UA,
+                UUID_MP: req.body.id,
                 Diagnosis_DM: req.body.diagnosis,
                 Obat_DM: req.body.obat,
                 Alergi_DM: req.body.alergi
