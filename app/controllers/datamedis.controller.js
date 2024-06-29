@@ -80,7 +80,11 @@ exports.create = async (req, res) => {
 
 exports.findAll = async (req, res) => {
     try {
-        const responseDatas = await prisma.dataMedis.findMany();
+        const responseDatas = await prisma.dataMedis.findMany({
+            include: {
+                MedicPersonel: true,
+            }
+        });
 
         return res.status(200).json(responseDatas);
 
