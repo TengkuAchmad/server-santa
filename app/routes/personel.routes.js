@@ -10,7 +10,7 @@ const { authenticateToken } = require("../middleware/middleware");
 // ROUTER CONFIGURATION
 router.post("/personel-management", authenticateToken,personel_controller.create);
 router.get("/personel-management", authenticateToken,personel_controller.findAll);
-router.delete("/personel/:uuid", authenticateToken, personel_controller.deleteOne);
-router.delete("/personel", authenticateToken, personel_controller.deleteAll);
+router.delete("/personel-management/:uuid", authenticateToken, personel_controller.deleteOne);
+router.delete("/personel-management", authenticateToken, personel_controller.deleteAll);
 
 module.exports = router;
