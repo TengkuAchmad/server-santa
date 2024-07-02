@@ -18,6 +18,12 @@ exports.findOne = async(req, res) => {
         const responseData = await prisma.dataMedis.findMany({
             where : {
                 UUID_UA: id,
+            }, include: {
+                MedicPersonel: {
+                    select: {
+                        Name_MP: true,
+                    }
+                },
             }
         });
 
